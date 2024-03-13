@@ -1,0 +1,13 @@
+import axios from 'axios';
+
+const API_KEY = 'jP6CEvQTf8AH0XUnikRtkFsJeJBAtvFi0vj_QLweYP4';
+axios.defaults.baseURL = 'https://api.unsplash.com/';
+axios.defaults.headers.common['Authorization'] = API_KEY;
+axios.defaults.params = {
+  orientation: 'landscape',
+  per_page: 15,
+};
+export const getPhotos = async (query, page) => {
+  const { data } = await axios.get(`search?query=${query}&page=${page}`);
+  return data;
+};
