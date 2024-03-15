@@ -21,6 +21,7 @@
 }
 
 .buttonForm {
+  width: auto;
   font-size: 20px;
   font-weight: bold;
   color: #212121;
@@ -30,7 +31,7 @@
   right: 0;
 }
 .buttonForm:hover {
-  background-color: aliceblue;
+  background-color: rgb(240, 191, 229);
   cursor: pointer;
   border-radius: 4px;
   padding: 2px 4px;
