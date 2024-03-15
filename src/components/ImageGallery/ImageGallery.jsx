@@ -5,12 +5,9 @@ const ImageGallery = ({ images, modalOpen }) => {
   return (
     <ul className={css.list}>
       {images.map(({ id, alt_description, urls }) => (
-        <ImageCard
-          key={id}
-          alt={alt_description}
-          src={urls}
-          modalOpen={modalOpen}
-        />
+        <li className={css.item} key={id}>
+          <ImageCard alt={alt_description} src={urls} modalOpen={modalOpen} />
+        </li>
       ))}
     </ul>
   );
