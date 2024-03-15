@@ -22,7 +22,7 @@ const SearchBar = ({ onSubmit }) => {
   };
 
   return (
-    <header>
+    <header className={css.headerForm}>
       <form className={css.form} onSubmit={handleSubmit}>
         <input
           className={css.inputStyle}
