@@ -1,10 +1,11 @@
-import toast from 'react-hot-toast';
+// import toast from 'react-hot-toast';
 
-const ErrorMessage = error => {
+const ErrorMessage = ({ error, children }) => {
   return (
-    <div>
-      <p>{error}😭</p>
-    </div>
+    <p>
+      {children}
+      {error}😭
+    </p>
   );
 };
 

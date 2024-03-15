@@ -7,7 +7,9 @@ import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import { Loader } from './components/Loader/Loader';
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 import toast from 'react-hot-toast';
+import ImageModal from './components/ImageModal/ImageModal';
 
+const notify = () => toast('Please, enter something in the searching field!');
 function App() {
   const [query, setQuery] = useState('');
   const [images, setImages] = useState([]);
@@ -16,20 +18,22 @@ function App() {
   const [isError, setError] = useState(null);
   const [isEmpty, setIsEmpty] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalUrl, setModalUrl] = useState('');
+  const [modalAlt, setModalAlt] = useState('');
 
   useEffect(() => {
     if (!query) return;
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const { results, total_pages, total } = await getPhotos(query, page);
+        const { results, total_pages } = await getPhotos(query, page);
         if (results.length === 0) {
           setIsEmpty(true);
           return;
         }
         setImages(prevState => [...prevState, ...results]);
-        setIsVisible(page < Math.ceil(total_pages / total));
+        setIsVisible(page < total_pages);
 
         console.log(results);
       } catch (error) {
@@ -51,23 +55,49 @@ function App() {
     setError(false);
     setIsVisible(false);
   };
-
+  const handleOpenModal = (url, alt) => {
+    setShowModal(true);
+    setModalUrl(url);
+    setModalAlt(alt);
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setModalUrl('');
+    setModalAlt('');
+  };
   return (
     <>
-      <SearchBar onSubmit={handleSubmit} />;
-      {images.length > 0 && <ImageGallery images={images} />}
+      <SearchBar onSubmit={handleSubmit} />
+      {images.length > 0 && (
+        <ImageGallery images={images} modalOpen={handleOpenModal} />
+      )}
       {isVisible && (
         <LoadMoreBtn onClick={handleLoadMore} disabled={isLoading}>
           {isLoading ? 'Loading' : 'Load More'}
         </LoadMoreBtn>
       )}
-      {!images.length && !isEmpty && <p>Lets begin search 😏</p>}
-      {isError && <ErrorMessage error={isError} />}
+      {!images.length && !isEmpty && <p>Lets begin search 🔎 </p>}
+
+      {/* {!images.length && (
+        <ErrorMessage>
+          {'You have not entered a single word. Please try again.'}
+        </ErrorMessage>
+      )} */}
+      {isError && (
+        <ErrorMessage error={isError}>
+          {'Somethings wont wrong...{error}'}
+        </ErrorMessage>
+      )}
       {isLoading && <Loader />}
-      {isEmpty &&
-        toast('You have not entered one character. Please enter a word.', {
-          duration: 2000,
-        })}
+      {isEmpty && (
+        <ErrorMessage error={'No results found. Please try again.'} />
+      )}
+      <ImageModal
+        modalIsOpen={showModal}
+        closeModal={handleCloseModal}
+        src={modalUrl}
+        alt={modalAlt}
+      />
     </>
   );
 }

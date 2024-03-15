@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import css from './SearchBar.module.css';
 
 const SearchBar = ({ onSubmit }) => {
@@ -32,6 +32,25 @@ const SearchBar = ({ onSubmit }) => {
         <button className={css.buttonForm} type="submit">
           Search <FiSearch size="16px" />
         </button>
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+          gutter="8"
+          containerClassName=""
+          containerStyle={{}}
+          toastOptions={{
+            className: '',
+            duraction: 4000,
+
+            style: {
+              background: '#fff',
+              color: '#000',
+              fontSize: '16px',
+              border: '1px solid #000',
+              padding: '10px',
+            },
+          }}
+        />
       </form>
     </header>
   );

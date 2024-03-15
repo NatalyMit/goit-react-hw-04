@@ -1,20 +1,19 @@
 .item {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
   justify-content: center;
 }
 .card {
   display: flex;
-  flex-direction: column;
   align-items: center;
+
   justify-content: center;
-
-  height: 100%;
-
   background-color: var(--color-light);
-
   border: 4px solid #fff;
   border-radius: 16px;
   overflow: hidden;
+}
+.image {
+  width: 100%;
 }
