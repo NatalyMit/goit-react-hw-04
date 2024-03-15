@@ -5,6 +5,7 @@ const ImageCard = ({ alt, src, modalOpen }) => {
     <li className={css.item}>
       <div className={css.card} onClick={() => modalOpen(src.regular, alt)}>
         <img className={css.image} src={src.small} alt={alt} />
+        <p></p>
       </div>
     </li>
   );

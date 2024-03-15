@@ -3,12 +3,16 @@ import { FiSearch } from 'react-icons/fi';
 import toast, { Toaster } from 'react-hot-toast';
 import css from './SearchBar.module.css';
 
+// const notify = () => toast('Please, enter something in the searching field!');
+
 const SearchBar = ({ onSubmit }) => {
   const [query, setQuery] = useState('');
   const handleSubmit = e => {
     e.preventDefault();
     if (!query.trim()) {
-      return toast.error('This is an error!');
+      return toast.error(
+        'You have not entered a single word. Please try again!'
+      );
     }
     onSubmit(query);
     setQuery('');
@@ -40,7 +44,7 @@ const SearchBar = ({ onSubmit }) => {
           containerStyle={{}}
           toastOptions={{
             className: '',
-            duraction: 4000,
+            duraction: 2000,
 
             style: {
               background: '#fff',

@@ -1,11 +1,12 @@
-// import toast from 'react-hot-toast';
-
-const ErrorMessage = ({ error, children }) => {
+import { HiOutlineFaceFrown } from 'react-icons/hi2';
+import css from './ErrorMessage.module.css';
+const ErrorMessage = () => {
   return (
-    <p>
-      {children}
-      {error}😭
-    </p>
+    <div>
+      <p className={css.errorMessage}>
+        Somethings wont wrong... <HiOutlineFaceFrown width={20} />
+      </p>
+    </div>
   );
 };
 

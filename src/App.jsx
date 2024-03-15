@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import { ImSpinner } from 'react-icons/im';
+import { HiOutlineFaceFrown } from 'react-icons/hi2';
 import SearchBar from './components/SearchBar/SearchBar';
 import { getPhotos } from './apiService/apiService';
 import ImageGallery from './components/ImageGallery/ImageGallery';
 import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import { Loader } from './components/Loader/Loader';
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
-import toast from 'react-hot-toast';
 import ImageModal from './components/ImageModal/ImageModal';
 
-const notify = () => toast('Please, enter something in the searching field!');
 function App() {
   const [query, setQuery] = useState('');
   const [images, setImages] = useState([]);
@@ -76,21 +76,19 @@ function App() {
           {isLoading ? 'Loading' : 'Load More'}
         </LoadMoreBtn>
       )}
-      {!images.length && !isEmpty && <p>Lets begin search 🔎 </p>}
-
-      {/* {!images.length && (
-        <ErrorMessage>
-          {'You have not entered a single word. Please try again.'}
-        </ErrorMessage>
-      )} */}
-      {isError && (
-        <ErrorMessage error={isError}>
-          {'Somethings wont wrong...{error}'}
-        </ErrorMessage>
+      {!images.length && !isEmpty && !isError && (
+        <p>
+          Lets begin search <ImSpinner width={20} />
+        </p>
       )}
+
+      {isError && <ErrorMessage />}
       {isLoading && <Loader />}
       {isEmpty && (
-        <ErrorMessage error={'No results found. Please try again.'} />
+        <p>
+          No results found. Please try again.
+          <HiOutlineFaceFrown />
+        </p>
       )}
       <ImageModal
         modalIsOpen={showModal}
